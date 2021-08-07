@@ -13,11 +13,9 @@ const db = knex({ // create variable which uses database called 'bd' using knex.
     client: 'pg',
     connection: {
         connectionString : process.env.DATABASE_URL,
-        ssl: {
-
-            rejectUnauthorized: false
-    
-          }
+            ssl: {
+                rejectUnauthorized: false
+            }
     }
 });
 
