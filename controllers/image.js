@@ -10,7 +10,6 @@ const handleApiCall = (req, res) => {
     .then(data => {
         res.json(data)
     })
-    .then(data => console.log(data))
     .catch(err => res.status(400).json('unable to work with API'))
 }
 
