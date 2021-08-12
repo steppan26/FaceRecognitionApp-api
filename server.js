@@ -9,25 +9,26 @@ const signin = require('./controllers/signin')
 const profile = require('./controllers/profile')
 const image = require('./controllers/image')
 
-// const db = knex({ // create variable which uses database called 'bd' using knex.js
-//     client: 'pg',
-//     connection: {
-//         connectionString : process.env.DATABASE_URL,
-//             ssl: {
-//                 rejectUnauthorized: false
-//             }
-//     }
-// });
-
-const db = knex({
+const db = knex({ // create variable which uses database called 'db' using knex.js
     client: 'pg',
     connection: {
-        host: '127.0.0.1',
-        user: 'postgres',
-        password: 'Paziols26',
-        database: 'smartbrain'
+        connectionString : process.env.DATABASE_URL,
+            ssl: {
+                rejectUnauthorized: false
+            }
     }
 });
+
+// local database for debugging purposes
+    // const db = knex({
+    //     client: 'pg',
+    //     connection: {
+    //         host: '127.0.0.1',
+    //         user: 'postgres',
+    //         password: 'Paziols26',
+    //         database: 'smartbrain'
+    //     }
+    // });
 
 const app = express()
 app.use(express.json())
@@ -41,11 +42,11 @@ app.get('/profile/:id', (req, res) => { profile.handleProfileGet(req, res, db) }
 app.put('/image', (req, res) => { image.handleImage(req, res, db)})
 app.post('/imageurl', (req, res) => { image.handleApiCall(req, res)})
 
-// app.listen(process.env.PORT || 3000, ()=> {
-//     console.log(`app is running on port ${process.env.PORT}`)
-// })
-
-//for local use to make updates to server and test localy
-app.listen(3000, ()=> {
-    console.log(`app is running on port 3000`)
+app.listen(process.env.PORT || 3000, ()=> {
+    console.log(`app is running on port ${process.env.PORT}`)
 })
+
+// //for local use to make updates to server and test localy
+// app.listen(3000, ()=> {
+//     console.log(`app is running on port 3000`)
+// })

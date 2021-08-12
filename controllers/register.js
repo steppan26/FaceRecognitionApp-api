@@ -26,7 +26,7 @@ const handleRegister = (req, res, db, bcrypt) => {
             .then(trx.commit) // if all conditions are met without error, commit into the databases
             .catch(trx.rollback) //if an error is received, rollback the databases and cancel changes
         })
-        .catch(err => res.status(401).json('unable to register!'))
+        .catch(err => res.status(401).json('unable'))
 }
 
 // export module for use in server.js
