@@ -4,7 +4,7 @@ const handleRegister = (req, res, db, bcrypt) => {
         return res.status(400).json('incorrect form submission')
     }
     const hash = bcrypt.hashSync(password) // create 'hash' variable which includes the user's password's hash key
-        db.transaction(trx => { //if updating more than one database, must combine them in a transaction
+        db.transaction(trx => { //if updating more than one database, must combine them in a transaction [here we are updating both 'login' and 'users' databases]
             trx.insert({
                 hash: hash,
                 email: email
@@ -26,7 +26,7 @@ const handleRegister = (req, res, db, bcrypt) => {
             .then(trx.commit) // if all conditions are met without error, commit into the databases
             .catch(trx.rollback) //if an error is received, rollback the databases and cancel changes
         })
-        .catch(err => res.status(400).json('unable to register'))
+        .catch(err => res.status(401).json('unable to register!'))
 }
 
 // export module for use in server.js
